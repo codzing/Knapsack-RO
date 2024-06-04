@@ -3,40 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knapsack Calculator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Knapsack</title>
     <style>
-        .table th {
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
             text-align: center;
-        }
-        body {
-            background-color: #a498b0;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        table {
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">Knapsack Calculator</h1>
-        <div class="form-group">
-            <label for="cap">Kapasitas Maksimum :</label>
-            <input type="number" class="form-control" id="cap" placeholder="Masukkan Kapasitas Maksimum" step="1" required>
-        </div>
-        <div class="form-group">
-            <label for="total">Total Variabel :</label>
-            <input type="number" class="form-control" id="total" placeholder="Masukkan Total Variabel" step="1" required>
-        </div>
-        <button class="btn btn-primary btn-block" onclick="generatetbl()">Generate Table</button>
-        
-        <div id="inputus"></div>
-        <div id="output" class="mt-4"></div>
+    <h1>Knapsack Calc</h1>
+    <div>
+        <label for="cap">Input Maks Capacity : </label>
+        <input type="number" id="cap" step="1">
+        <br>
+        <label for="total">Input Total Variable : </label>
+        <input type="number" id="total" step="1">
+        <br>
+        <button type="button" onclick="generatetbl()">Generate Table</button>
+
     </div>
-    <script src="knapsack.js"></script>
+    <div id="inputus">
+
+    </div>
+    <div id="output">
+
+    </div>
     
+    <script src="knapsackjs.js"></script>
 </body>
 </html>
