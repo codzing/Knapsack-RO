@@ -3,37 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knapsack</title>
+    <title>Knapsack Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
             padding: 5px;
             text-align: center;
         }
+        body {
+            background-color: #dbc3f3;
+        }
+        .container {
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
-    <h1>Knapsack Calculator</h1>
-    <div>
-        <label for="cap">Input Maks Capacity : </label>
-        <input type="number" id="cap" step="1">
-        <br>
-        <label for="total">Input Total Variable : </label>
-        <input type="number" id="total" step="1">
-        <br>
-        <button type="button" onclick="generatetbl()">Generate Table</button>
-
+    <div class="container">
+        <h1 class="text-center">Knapsack Calculator</h1>
+        <div class="form-group">
+            <label for="cap">Kapasitas Maksimum :</label>
+            <input type="number" class="form-control" id="cap" placeholder="Masukkan Kapasitas Maksimum" step="1" required>
+        </div>
+        <div class="form-group">
+            <label for="total">Total Variabel :</label>
+            <input type="number" class="form-control" id="total" placeholder="Masukkan Total Variabel" step="1" required>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="generatetbl()">Generate Table</button>
+        
+        <div id="inputus"></div>
+        <div id="output" class="mt-4"></div>
     </div>
-    <div id="inputus">
-
-    </div>
-    <div id="output">
-
-    </div>
-    
     <script src="knapsackjs.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
