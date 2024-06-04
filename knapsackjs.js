@@ -12,21 +12,13 @@ function generatetbl() {
     document.getElementById("inputus").innerHTML = table;
 }
 
-function copy(val1,val2,iter){
-    for(let i=0;i<iter;i++){
-        val1[i] = val2[i];
-    }
-}
-
 function maksimumsort(ind,weight,cost,n){
     for(let i = 1; i < n; ++i){
-         let maxind = i;
         for(let j = i; j>0; j--){
-            if(cost[j]/weight[i] > cost[maxind]/weight[maxind]){
-                maxind = j;
+            if(cost[j]/weight[j] > cost[j-1]/weight[j-1]){
+                [ind[j], ind[j-1]] = [ind[j-1], ind[j]];
             }
         }
-        [ind[i], ind[maxind]] = [ind[maxind], ind[i]];
         
     }
 }
