@@ -5,37 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knapsack Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .table th {
-            text-align: center;
-        }
-        body {
-            background-color: #a498b0;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        table {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!--HEADER-->
+    <header class="header-style">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <img src="img/header-logo.png" alt="Logo" class="logo">
+                </div>
+                <div class="col-6 text-right">
+                    <h5 class="riset-operasi">Riset Operasi</h5>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--CONTENT-->
     <div class="container">
         <h1 class="text-center">Knapsack Calculator</h1>
+        <h5 class="text-center-welcome">Welcome to Knapsack Calculator</h5>
         <div class="form-group">
-            <label for="cap">Kapasitas Maksimum :</label>
-            <input type="number" class="form-control" id="cap" placeholder="Masukkan Kapasitas Maksimum" step="1" required min="1">
+            <label for="cap">Kapasitas Maksimum:</label>
+            <input type="number" class="form-control" id="cap" placeholder="Masukkan Kapasitas Maksimum" step="1" required>
         </div>
         <div class="form-group">
-            <label for="total">Total Variabel :</label>
-            <input type="number" class="form-control" id="total" placeholder="Masukkan Total Variabel" step="1" required min="1">
+            <label for="total">Total Variabel:</label>
+            <input type="number" class="form-control" id="total" placeholder="Masukkan Total Variabel" step="1" required>
         </div>
         <button class="btn btn-primary btn-block" onclick="generatetbl()">Generate Table</button>
         
-        <div id="inputus"></div>
+        <div id="inputus" class="mt-4"></div>
         <div id="output" class="mt-4"></div>
     </div>
+
+    <!--FOOTER-->
+    <footer class="footer">
+        <div class="container footer-content">
+            <h2 class="footer-title">Knapsack Calculator</h2>
+            <p class="footer-description">
+                Project ini dibuat untuk memenuhi Tugas Akhir Mata Kuliah Riset Operasi yang diampu oleh Bapak Herry
+                Suprajitno S.Si., M.Si.
+            </p>
+            <div class="footer-links">
+                <a href="https://docs.google.com/document/d/1P5_GR604GTZzEqu_uA3q92QVtx_HB5jz/edit?usp=sharing&ouid=110592790970860980582&rtpof=true&sd=true" class="footer-link">Makalah</a>
+                <a href="https://github.com/codzing/Knapsack-RO/blob/main/knapsack.cpp" class="footer-link">Program C++</a>
+            </div>
+            <div class="footer-logos">
+                <div class="footer-logo">
+                    <img src="img/slack.png" alt="Slack" class="slack">
+                    <div class="footer-kelompok">KELOMPOK 1</div>
+                </div>
+                <div class="footer-repo">
+                    <img src="img/github.png" alt="GitHub" class="git-hub">
+                    <div><a href="https://github.com/codzing/Knapsack-RO/tree/main" class="repository-link  ">Repository</a></div>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-copyright">© 2024 Kelompok 1</div>
+        </div>
+    </footer>
+
     <script src="knapsackjs.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
