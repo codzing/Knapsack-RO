@@ -1,0 +1,179 @@
+:root {
+    --white: rgba(255, 255, 255, 1);
+    --dark: rgba(10, 20, 47, 1);
+    --primary: #0056b3;
+    --bg-dark: #031602;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Poppins-Regular", Helvetica, Arial, sans-serif;
+}
+
+/** Header **/
+header {
+    background-color: var(--bg-dark); /* Ubah warna latar belakang header */
+    color: white; /* Warna teks */
+    padding-bottom: 5px;
+}
+
+.logo {
+    max-width: 150px; /* Atur lebar maksimum logo */
+    height: auto; /* Biarkan tinggi logo disesuaikan secara otomatis */
+}
+
+.riset-operasi {
+    margin: 20; /* Atur margin atas */
+    font-size: 14px; /* Ukuran font */
+    font-weight: 500; /* Ketebalan font */
+}
+
+/** Tabel **/
+#table{
+    font-family: "Poppins-Regular", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    text-align: center;
+}
+.btn-primary {
+    background-color: var(--primary); /* Warna latar belakang tombol */
+    color: white; /* Warna teks */
+    padding: 10px 20px; /* Padding pada tombol */
+    border: none; /* Hapus border */
+    border-radius: 5px; /* Sudut lengkung pada tombol */
+    cursor: pointer; /* Ubah kursor saat diarahkan ke tombol */
+    transition: background-color 0.3s ease; /* Efek transisi saat hover */
+    font-weight: 500;
+    font-family: "Poppins-Regular", Helvetica, Arial, sans-serif;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Warna latar belakang tombol saat dihover */
+}
+
+.container {
+    flex: 1;
+    padding: 20px;
+}
+.container .text-center{
+    font-weight: 1000;
+}
+.container .text-center-welcome{
+    text-align: center;
+}
+
+h2{
+    font-family: "Poppins-Regular", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+}
+
+/** Footer **/
+.footer {
+    background-color: var(--bg-dark);
+    color: var(--white);
+    padding: 10px 5px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.footer-description {
+    max-width: 600px;
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.footer-link {
+    background-color: #f7f9fb;
+    color: var(--dark);
+    padding: 3px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.footer-logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 5px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-logo .slack {
+    width: 30px;
+    height: 30px;
+}
+
+.footer-kelompok {
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.footer-repo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-repo .git-hub {
+    width: 20px;
+    height: 20px;
+}
+.footer-divider {
+    width: 80%;
+    height: 1px;
+    background-color: var(--white);
+    opacity: 0.25;
+    margin-bottom: 5px;
+}
+
+.footer-content div {
+    text-align: center;
+}
+
+.footer-content .footer-copyright {
+    font-size: 10px;
+}
+
+.footer-repo .repository-link {
+    color:#f7f9fb
+}
+
+/*Output Styling*/
+#output {
+    margin-top: 4rem; 
+    padding: 20px; 
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins-Bold", Helvetica, Arial, sans-serif;
+}
