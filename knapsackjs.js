@@ -1,13 +1,13 @@
 function generatetbl() {
     const row = parseInt(document.getElementById("total").value, 10);
-    let table = '<table id="table"><tr><th>Value</th><th>Weight</th></tr>';
+    let table = '<table id="table" class="table table-bordered"><thead class="thead-dark"><tr><th>Value</th><th>Weight</th></tr></thead><tbody>';
 
     for (let i = 0; i < row; i++) {
-        table += `<tr><td><input type="number" id="value_${i}" step="1"></td>`;
-        table += `<td><input type="number" id="weight_${i}" step="1"></td></tr>`;
+        table += `<tr><td><input type="number" class="form-control" id="value_${i}" step="1"></td>`;
+        table += `<td><input type="number" class="form-control" id="weight_${i}" step="1"></td></tr>`;
     }
-    table += '</table>';
-    table += '<button type="button" onclick="knapsackcalc()">Solve</button>';
+    table += '</tbody></table>';
+    table += '<button class="btn btn-success btn-block mt-2" onclick="knapsackcalc()">Solve</button>';
 
     document.getElementById("inputus").innerHTML = table;
 }
