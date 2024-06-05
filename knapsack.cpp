@@ -2,13 +2,6 @@
 using namespace std;
 const int max_var = 100;
 
-//fungsi mengcopy array2 ke array1
-void copy(double val1[], double val2[], int iter){
-    for(int i=0; i<iter; i++){
-        val1[i] = val2[i];
-    }
-}
-
 //Buat Sorting
 void swap(int &a, int &b){
     int temp = a;
@@ -33,13 +26,18 @@ void maksimumsort(int index[],int weight[],double cost[], int n){
 
 
 //Knapsack Algorithm
-void knapsack(int index[], int sol[], int weight[], int capacty, int iter){
+void knapsack(int index[], int sol[], int weight[],int maksInd[], int capacty, int iter){
     int d[iter];
     for(int i = 0; i<iter; i++){
         d[index[i]] = capacty/weight[index[i]];
     }
     for(int i = 0; i<iter ; i++){
         sol[index[i]] = (d[index[i]])<(capacty/weight[index[i]])?(d[index[i]]):(capacty/weight[index[i]]);
+        if(sol[index[i]]>maksInd[index[i]]){
+            if(maksInd[index[i]]!=-1){
+                sol[index[i]]=maksInd[index[i]];
+            }
+        }
         capacty = capacty-sol[index[i]]*weight[index[i]];
         cout << "\ncapacity : " << capacty;
         if(capacty == 0){
@@ -59,8 +57,8 @@ return total;
 
 int main(){
 
-    double objfunc[max_var], temp[max_var], value;
-    int totvar, constraint[max_var], maxCap,solution[max_var], index[max_var];
+    double objfunc[max_var],value;
+    int totvar, constraint[max_var], maxCap,solution[max_var], index[max_var],maxW[max_var];
     index[0] = 0;
     cout << "Masukkan jumlah variabel : ";
     cin >> totvar;
@@ -74,8 +72,13 @@ int main(){
         }
     }
     cout << endl;
+
+    cout << "Masukkan kapasitas tersedia (jika M input -1): \n";
+    for(int i=0;i<totvar;i++){
+        cout << "Masukkan batas kapasitas x" << (i+1) << " : ";
+        cin >> maxW[i];
+    }
     
-    copy(temp, objfunc, totvar);
     cout << endl;
     cout << "Input batasan : \n";
 
@@ -107,7 +110,7 @@ int main(){
     maksimumsort(index, constraint, objfunc, totvar);
     cout << endl;
     
-    knapsack(index, solution, constraint, maxCap, totvar);
+    knapsack(index, solution, constraint, maxW, maxCap, totvar);
     value = totVal(objfunc, solution, totvar);
 
     cout << "\nsolusinya :\n";
@@ -121,9 +124,6 @@ int main(){
     cout << "}";
 
     cout << "\ndengan nilai total = " << value;
-    for(int i=0;i<totvar;i++){
-        cout << index[i];
-    }
 
 return 0;
 }
