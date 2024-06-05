@@ -1,12 +1,26 @@
 function generatetbl() {
     const row = parseInt(document.getElementById("total").value, 10);
-    let table = '<table id="table" class="table table-bordered"><thead class="thead-dark"><tr><th>Value</th><th>Weight</th></tr></thead><tbody>';
+    let table = `<table id="table" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Item</th>
+                            <th>Value</th>
+                            <th>Weight</th>
+                            <th>Available (if M then -1)</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
 
     for (let i = 0; i < row; i++) {
-        table += `<tr><td><input type="number" class="form-control" id="value_${i}" step="1"></td>`;
-        table += `<td><input type="number" class="form-control" id="weight_${i}" step="1"></td></tr>`;
+        table += `<tr>
+                    <td>x[` + (i+1) + `]</td>
+                    <td><input type="number" class="form-control" step="1"></td>
+                    <td><input type="number" class="form-control" step="1"></td>
+                    <td><input type="number" class="form-control" step="1" value="-1"</td>
+                </tr>`;
     }
-    table += '</tbody></table>';
+    table += `</tbody>
+            </table>`;
     table += '<button class="btn btn-success btn-block mt-2" onclick="knapsackcalc()">Solve</button>';
 
     document.getElementById("inputus").innerHTML = table;
@@ -23,7 +37,7 @@ function maksimumsort(ind,weight,cost,n){
     }
 }
 
-function algknapsack(ind, sol, weight, capacity, iter) {
+function algknapsack(ind, sol, weight,avl, capacity, iter) {
     const d = [];
     for(let i = 0; i < iter; i++){
         d.push(0);
@@ -35,6 +49,11 @@ function algknapsack(ind, sol, weight, capacity, iter) {
     for (let i = 0; i < iter; i++) {
         sol[ind[i]] = Math.min(d[ind[i]], Math.floor(capacity / weight[ind[i]])); // Menyesuaikan dengan jumlah maksimum
         console.log(Math.floor(capacity/weight[ind[i]]));
+        if(sol[ind[i]]>avl[ind[i]]){
+            if(avl[ind[i]]!=-1){
+                sol[ind[i]]=avl[ind[i]];
+            }
+        }
         capacity -= sol[ind[i]] * weight[ind[i]]; // Mengurangi kapasitas berdasarkan berat item yang dimasukkan
         if (capacity == 0) {
             break;
@@ -57,28 +76,31 @@ function knapsackcalc() {
     const solution = [];
     const values = [];
     const weights = [];
+    const avs = [];
     const table = document.getElementById("table");
     const cap = parseInt(document.getElementById("cap").value, 10);
-    let result='<h2>Hasil : </h2>';
+    let result='<h2>Result : </h2>';
 
     for (let i = 0; i < row; i++) {
-        const value = parseFloat(table.rows[i + 1].cells[0].children[0].value);
-        const weight = parseInt(table.rows[i + 1].cells[1].children[0].value, 10);
+        const value = parseFloat(table.rows[i + 1].cells[1].children[0].value);
+        const weight = parseInt(table.rows[i + 1].cells[2].children[0].value, 10);
+        const ava = parseInt(table.rows[i+1].cells[3].children[0].value,10);
         values.push(value);
         weights.push(weight);
+        avs.push(ava);
         solution.push(0);
         ind.push(i);
     }
 
     maksimumsort(ind, weights, values, row);
-    algknapsack(ind, solution, weights, cap, row);
+    algknapsack(ind, solution, weights, avs, cap, row);
     let totvalue = totval(solution,values);
 
     for(let i=0;i<row;i++){ 
-        result+= "Barang " + (i+1) + " sebanyak : " + solution[i] + " unit";
-        result+= '<br>';
+        result+= "Item " + (i+1) + " : " + solution[i] + " unit";
+        result+= '<hr>';
     }
-    result += "Dengan nilai sebanyak : " + totvalue;
+    result += "With the total value is : " + totvalue;
 
     document.getElementById('output').innerHTML = result;
 }
