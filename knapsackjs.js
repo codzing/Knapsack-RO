@@ -71,7 +71,7 @@ function knapsackcalc() {
     const weights = [];
     const table = document.getElementById("table");
     const cap = parseInt(document.getElementById("cap").value, 10);
-    let result='<h2>Hasil : </h2>';
+    let result='<h2>Result : </h2>';
 
     for (let i = 0; i < row; i++) {
         const value = parseFloat(table.rows[i + 1].cells[1].children[0].value);
@@ -90,7 +90,7 @@ function knapsackcalc() {
         result+= "Item " + (i+1) + " : " + solution[i] + " unit";
         result+= '<hr>';
     }
-    result += "Dengan nilai sebanyak : " + totvalue;
+    result += "With the total value is : " + totvalue;
 
     document.getElementById('output').innerHTML = result;
 }
