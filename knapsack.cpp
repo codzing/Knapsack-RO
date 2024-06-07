@@ -1,129 +1,124 @@
 #include <iostream>
+
 using namespace std;
-const int max_var = 100;
 
-//fungsi mengcopy array2 ke array1
-void copy(double val1[], double val2[], int iter){
-    for(int i=0; i<iter; i++){
-        val1[i] = val2[i];
-    }
-}
+const int MAX_N = 100; // Maksimal jumlah jenis barang
+const int MAX_W = 1000; // Maksimal kapasitas knapsack
 
-//Buat Sorting
-void swap(int &a, int &b){
-    int temp = a;
-    a = b;
-    b = temp;
-}
-void swap(double &a, double &b){
-    double temp = a;
-    a = b;
-    b = temp;
-}
-void maksimumsort(int index[],int weight[],double cost[], int n){
-    for(int i = 1; i < n; ++i){
-        
-        for(int j = i; j>0; j--){
-            if(cost[j]/weight[j] > cost[j-1]/weight[j-1]){
-                swap(index[j],index[j-1]);
+int knapsack(int W, int n, int w[], double v[], int m[], int selected[]) {
+    //inisialisasi total nilai brang dengan 0
+    int dp[MAX_N + 1][MAX_W + 1] = {0};
+
+    // Mengisi tabel dp
+    for (int i = 1; i <= n; ++i) {
+        for (int j = W; j >= 0; --j) {
+            for (int k = 0; k <= m[i-1] && k * w[i-1] <= j; ++k) {
+                if (dp[i][j] < dp[i-1][j - k * w[i-1]] + k * v[i-1]) {
+                    dp[i][j] = dp[i-1][j - k * w[i-1]] + k * v[i-1];
+                }
             }
         }
     }
-}   
 
-
-//Knapsack Algorithm
-void knapsack(int index[], int sol[], int weight[], int capacty, int iter){
-    int d[iter];
-    for(int i = 0; i<iter; i++){
-        d[index[i]] = capacty/weight[index[i]];
-    }
-    for(int i = 0; i<iter ; i++){
-        sol[index[i]] = (d[index[i]])<(capacty/weight[index[i]])?(d[index[i]]):(capacty/weight[index[i]]);
-        capacty = capacty-sol[index[i]]*weight[index[i]];
-        cout << "\ncapacity : " << capacty;
-        if(capacty == 0){
-            break;
+    // Menelusuri kembali untuk menemukan barang yang dipilih
+    int remainingCapacity = W;
+    for (int i = n; i > 0; --i) {
+        for (int k = 0; k <= m[i-1]; ++k) {
+            if (remainingCapacity >= k * w[i-1] && dp[i][remainingCapacity] == dp[i-1][remainingCapacity - k * w[i-1]] + k * v[i-1]) {
+                selected[i-1] = k;
+                remainingCapacity -= k * w[i-1];
+                break;
+            }
         }
     }
+
+    return dp[n][W];
 }
 
-//Fungsi menghitung nilai total
-double totVal(double val[],int sol[],int iter){
-double total=0;
-    for(int i = 0; i<iter; i++){
-        total+=val[i]*sol[i];
+int maksimum(int m[],int var){
+    int maks=0;
+    for(int i=0;i<var;i++){
+        maks=maks>m[i]?maks:m[i];
     }
-return total;
+
+    return maks;
 }
 
-int main(){
+int main() {
+    // Contoh data
+    int w[MAX_N]; // Berat barang
+    double v[MAX_N]; // Nilai barang
+    int m[MAX_N]; // Kapasitas maksimal barang
+    int W; // Kapasitas knapsack
+    int n; // Jumlah jenis barang
 
-    double objfunc[max_var], temp[max_var], value;
-    int totvar, constraint[max_var], maxCap,solution[max_var], index[max_var];
-    index[0] = 0;
     cout << "Masukkan jumlah variabel : ";
-    cin >> totvar;
+    cin >> n;
 
-    for(int i = 0; i<totvar; i++){
-        cout << "Masukkan koef tujuan x" << (i+1) << " : ";
-        cin >> objfunc[i];
-        solution[i] = 0;
-        if(i > 0){
-        index[i] = index[i-1]+1;
-        }
+    //inpput fungsi tujuan
+    for(int i=0;i<n;i++){
+        cout << "Masukkan Nilai barang ke -" << (i+1) << " : ";
+        cin >> v[i];
     }
     cout << endl;
-    
-    copy(temp, objfunc, totvar);
-    cout << endl;
-    cout << "Input batasan : \n";
 
-    for(int i=0; i<totvar; i++){
-        cout << "Masukkan koef batasan x" << (i+1) << " : ";
-        cin >> constraint[i];
-    }
-    cout << "\ninput Kapasitas maks : ";
-    cin >> maxCap;
-
-    cout << "Fungsi tujuannya adalah : \n";
-
-    for(int i = 0; i<totvar; i++){
-        cout << objfunc[i] << "x" << (i+1) << " ";
-        if(i<totvar-1){
+    //tampilan fungsi tujuan
+    cout << "Fungsi tujuan : \n";
+    for(int i=0;i<n;i++){
+        cout << v[i] << "x" << (i+1);
+        if(i<n-1){
             cout << " + ";
         }
     }
-    
-    cout << "\nDengan batasan :\n";
-    for(int i = 0; i<totvar; i++){
-        cout << constraint[i] << "x" << (i+1) << " ";
-        if(i < totvar-1){
+    cout << endl;
+
+    //input fungsi batasan pertama
+    cout << "Masukkan berat barang : \n";
+    for(int i=0;i<n;i++){
+        cout << "Masukkan berat barang ke -" << (i+1) << " : ";
+        cin >> w[i];
+    }
+    cout << endl;
+
+    cout << "Masukkan kapasitas maksimum : ";
+    cin >> W;
+    cout << endl;
+
+    //tampilan fungsi batasan pertama
+    cout << "Fungsi batassan : \n";
+    for(int i=0;i<n;i++){
+        cout << w[i] << "x" << (i+1);
+        if(i<n-1){
             cout << " + ";
         }
     }
-    cout << " <= " << maxCap;
-   
-    maksimumsort(index, constraint, objfunc, totvar);
+    cout << " <= " << W;
     cout << endl;
-    
-    knapsack(index, solution, constraint, maxCap, totvar);
-    value = totVal(objfunc, solution, totvar);
 
-    cout << "\nsolusinya :\n";
-    cout << "{";
-    for(int i = 0; i<totvar; i++){
-        cout << solution[i];
-        if(i < totvar-1){
-            cout << ", ";
+    //input fungsi batasan ke i+1
+    cout << "Masukkan ketersediaan barang (Jika infty = -1):\n";
+    for(int i=0;i<n;i++){
+        cout << "Masukkan ketersediaan barang ke -" << (i+1) << " : ";
+        cin >> m[i];
+    }
+    cout << endl;
+
+    //mendefinisikan ketersediaan barang yang tidak terbatas
+    for(int i=0;i<n;i++){
+        if(m[i]==-1){
+            m[i]=maksimum(m,n)+1;
         }
     }
-    cout << "}";
 
-    cout << "\ndengan nilai total = " << value;
-    for(int i=0;i<totvar;i++){
-        cout << index[i];
+    int selected[MAX_N] = {0}; // Array untuk melacak barang yang dipilih
+
+    int maxValue = knapsack(W, n, w, v, m, selected);
+
+    cout << "Nilai maksimum yang dapat diperoleh: " << maxValue << endl;
+    cout << "Barang yang dibawa: " << endl;
+    for (int i = 0; i < n; ++i) {
+        cout << "Barang ke-" << (i + 1) << ": " << selected[i] << " buah" << endl;
     }
 
-return 0;
+    return 0;
 }
